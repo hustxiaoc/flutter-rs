@@ -76,6 +76,7 @@ pub struct CanLaunchParams {
     pub url: String,
 }
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LaunchParams {
     pub universalLinksOnly: bool,

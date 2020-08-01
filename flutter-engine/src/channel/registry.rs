@@ -32,6 +32,10 @@ impl ChannelRegistry {
     {
         channel.init(self.engine.clone());
         let name = channel.name().to_owned();
+        if self.channels.contains_key(&name) {
+            panic!("Duplicated channel registry: {}", name);
+        }
+
         let arc = Arc::new(channel);
         let weak = Arc::downgrade(&arc);
         self.channels.insert(name, arc);

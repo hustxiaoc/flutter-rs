@@ -28,7 +28,11 @@ impl PluginRegistrar {
             let mut plugin = arc.write().unwrap();
             plugin.init(engine);
         }
-        self.plugins.insert(P::plugin_name().to_owned(), arc);
+        let name = P::plugin_name().to_owned();
+        if self.plugins.contains_key(&name) {
+            panic!("plugin {:?} exists", name);
+        }
+        self.plugins.insert(name, arc);
         self
     }
 
