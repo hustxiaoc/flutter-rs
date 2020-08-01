@@ -23,6 +23,7 @@ use flutter_plugins::settings::SettingsPlugin;
 use flutter_plugins::system::SystemPlugin;
 use flutter_plugins::textinput::TextInputPlugin;
 use flutter_plugins::window::WindowPlugin;
+use flutter_plugins::mousecursor::MouseCursorPlugin;
 use log::{debug, info};
 use parking_lot::{Mutex, RwLock};
 use std::collections::HashMap;
@@ -34,7 +35,7 @@ use std::time::Instant;
 // use glfw::{Context};
 
 // seems to be about 2.5 lines of text
-const SCROLL_SPEED: f64 = 50.0;
+const SCROLL_SPEED: f64 = 20.0;
 #[cfg(not(target_os = "macos"))]
 const BY_WORD_MODIFIER_KEY: glfw::Modifiers = glfw::Modifiers::Control;
 #[cfg(target_os = "macos")]
@@ -211,6 +212,7 @@ impl FlutterWindow {
         plugins.add_plugin(&engine, SystemPlugin::default());
         plugins.add_plugin(&engine, TextInputPlugin::new(textinput_handler));
         plugins.add_plugin(&engine, WindowPlugin::new(window_handler.clone()));
+        plugins.add_plugin(&engine, MouseCursorPlugin::default());
 
         Ok(Self {
             glfw: glfw.clone(),
@@ -575,6 +577,7 @@ impl FlutterWindow {
                     .unwrap_or(&glfw::Action::Release)
                     == &glfw::Action::Press
                 {
+                    println!("mouse move");
                     FlutterPointerPhase::Move
                 } else {
                     FlutterPointerPhase::Hover
