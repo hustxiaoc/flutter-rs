@@ -43,8 +43,6 @@ pub trait WindowHandler {
     fn start_drag(&mut self);
 
     fn end_drag(&mut self);
-
-    fn is_dragging(&mut self) -> bool;
 }
 
 pub struct WindowPlugin {

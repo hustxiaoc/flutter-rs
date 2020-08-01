@@ -47,7 +47,12 @@ class DraggebleAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   DraggebleAppBar({@required String title}) {
     this.appBar = AppBar(
-      title: Text(title),
+      title: GestureDetector(
+        child: Text(title),
+        onTap: () {
+          print("title tap");
+        },
+      ),
       actions: <Widget>[
         new IconButton(
           icon: new Icon(Icons.close),

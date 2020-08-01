@@ -120,6 +120,10 @@ impl GlfwWindowHandler {
         }
         self.dragging
     }
+
+    pub fn is_dragging(&mut self) -> bool {
+        self.dragging
+    }
 }
 
 unsafe impl Send for GlfwWindowHandler {}
@@ -180,10 +184,6 @@ impl WindowHandler for GlfwWindowHandler {
 
     fn end_drag(&mut self) {
         self.dragging = false;
-    }
-
-    fn is_dragging(&mut self) -> bool {
-        self.dragging
     }
 }
 

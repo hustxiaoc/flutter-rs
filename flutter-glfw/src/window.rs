@@ -480,7 +480,6 @@ impl FlutterWindow {
                 );
             }
             WindowEvent::CursorEnter(entered) => {
-                use flutter_plugins::window::WindowHandler;
                 if self.window_handler.lock().is_dragging() {
                     return;
                 }
