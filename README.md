@@ -13,6 +13,9 @@ Build flutter desktop app in dart & rust.
 ### Stocks
 ![stocks.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596271822355-4ff2da80-216e-424d-9552-4157b224c44e.png)
 
+### Flutter blog
+![flutter_blog.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596276644384-42506186-204a-48c8-b4c5-2a83ce1d4d30.png)
+
 # Get Started
 
 ## Install requirements
