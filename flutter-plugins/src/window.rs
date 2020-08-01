@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 use flutter_engine::{
     channel::{MethodCallHandler, MethodChannel},
-    codec::JSON_CODEC,
+    codec::STANDARD_CODEC,
     plugins::Plugin,
     FlutterEngine,
 };
@@ -70,7 +70,7 @@ impl Plugin for WindowPlugin {
             Handler {
                 handler: self.handler.clone(),
             },
-            &JSON_CODEC,
+            &STANDARD_CODEC,
         ));
     }
 }
