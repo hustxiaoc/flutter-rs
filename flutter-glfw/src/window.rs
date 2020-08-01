@@ -23,6 +23,7 @@ use flutter_plugins::settings::SettingsPlugin;
 use flutter_plugins::system::SystemPlugin;
 use flutter_plugins::textinput::TextInputPlugin;
 use flutter_plugins::window::WindowPlugin;
+use flutter_plugins::url_launcher::UrlLauncherPlugin;
 use flutter_plugins::mousecursor::MouseCursorPlugin;
 use log::{debug, info};
 use parking_lot::{Mutex, RwLock};
@@ -213,6 +214,7 @@ impl FlutterWindow {
         plugins.add_plugin(&engine, TextInputPlugin::new(textinput_handler));
         plugins.add_plugin(&engine, WindowPlugin::new(window_handler.clone()));
         plugins.add_plugin(&engine, MouseCursorPlugin::default());
+        plugins.add_plugin(&engine, UrlLauncherPlugin::default());
 
         Ok(Self {
             glfw: glfw.clone(),
