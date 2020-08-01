@@ -7,7 +7,7 @@
 
 Build flutter desktop app in dart & rust.
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596253473169-51151c31-3b55-4442-87a7-df50d189821a.png#align=left&display=inline&height=662&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1324&originWidth=1774&size=962023&status=done&style=none&width=887)
+![image.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596253473169-51151c31-3b55-4442-87a7-df50d189821a.png)
 
 # Get Started
 
