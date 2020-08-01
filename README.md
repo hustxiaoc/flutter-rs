@@ -1,4 +1,4 @@
-# flutter-rs
+# rust-flutter
 
 [![Crates.io][crates-badge]][crates-url]
 [![flutter version][flutter-badge]][flutter-url]
@@ -7,7 +7,7 @@
 
 Build flutter desktop app in dart & rust.
 
-![flutter-app-template][flutter-app-template]
+![image.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596253473169-51151c31-3b55-4442-87a7-df50d189821a.png#align=left&display=inline&height=662&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1324&originWidth=1774&size=962023&status=done&style=none&width=887)
 
 # Get Started
 
@@ -24,11 +24,11 @@ Build flutter desktop app in dart & rust.
     
 - create your new project from the template
 
-    `git clone https://github.com/flutter-rs/flutter-app-template`
+    `git clone https://github.com/hustxiaoc/rust-flutter`
 
 - To develop with cli hot-reloading:
 
-    `cd flutter-app-template`
+    `cd examples/flutter-unit`
     
     `cargo flutter run`
 
@@ -37,7 +37,7 @@ Build flutter desktop app in dart & rust.
     `cargo flutter --format appimage build --release`
 
 # Contribution
-To contribute to flutter-rs, please see [CONTRIBUTING](CONTRIBUTING.md).
+To contribute to rust-flutter, please see [CONTRIBUTING](CONTRIBUTING.md).
 
 # ChangeLog
 [CHANGELOG](CHANGELOG.md).
