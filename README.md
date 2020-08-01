@@ -7,7 +7,11 @@
 
 Build flutter desktop app in dart & rust.
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596253473169-51151c31-3b55-4442-87a7-df50d189821a.png)
+### Flutter unit
+![flutter_unit.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596253473169-51151c31-3b55-4442-87a7-df50d189821a.png)
+
+### Stocks
+![stocks.png](https://cdn.nlark.com/yuque/0/2020/png/200511/1596271822355-4ff2da80-216e-424d-9552-4157b224c44e.png)
 
 # Get Started
 
@@ -21,7 +25,7 @@ Build flutter desktop app in dart & rust.
 - install the `cargo` `flutter` command
 
     `cargo install cargo-flutter`
-    
+
 - create your new project from the template
 
     `git clone https://github.com/hustxiaoc/rust-flutter`
@@ -29,7 +33,7 @@ Build flutter desktop app in dart & rust.
 - To develop with cli hot-reloading:
 
     `cd examples/flutter-unit`
-    
+
     `cargo flutter run`
 
 ## Distribute
@@ -53,4 +57,3 @@ To contribute to rust-flutter, please see [CONTRIBUTING](CONTRIBUTING.md).
 [mit-url]: LICENSE-MIT
 [flutter-app-template]: https://user-images.githubusercontent.com/741807/72476798-5a99e280-37ee-11ea-9e08-b0175ae21ad6.png
 [demo-ui]: https://raw.githubusercontent.com/flutter-rs/flutter-rs/master/www/images/demo_ui.png
-
