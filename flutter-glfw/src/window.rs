@@ -31,6 +31,7 @@ use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc::{Receiver, SendError, Sender};
 use std::sync::{mpsc, Arc, Weak};
 use std::time::Instant;
+// use glfw::{Context};
 
 // seems to be about 2.5 lines of text
 const SCROLL_SPEED: f64 = 50.0;
@@ -113,12 +114,16 @@ impl FlutterWindow {
     ) -> Result<Self, CreateError> {
         glfw.window_hint(glfw::WindowHint::ContextVersion(3, 2));
         glfw.window_hint(glfw::WindowHint::OpenGlForwardCompat(true));
-        glfw.window_hint(glfw::WindowHint::OpenGlProfile(
-            glfw::OpenGlProfileHint::Core,
-        ));
-        glfw.window_hint(glfw::WindowHint::ContextCreationApi(
-            glfw::ContextCreationApi::Egl,
-        ));
+        glfw.window_hint(glfw::WindowHint::OpenGlProfile(glfw::OpenGlProfileHint::Core));
+
+        // glfw.window_hint(glfw::WindowHint::ContextVersion(3, 2));
+        // glfw.window_hint(glfw::WindowHint::OpenGlForwardCompat(true));
+        // glfw.window_hint(glfw::WindowHint::OpenGlProfile(
+        //     glfw::OpenGlProfileHint::Core,
+        // ));
+        // glfw.window_hint(glfw::WindowHint::ContextCreationApi(
+        //     glfw::ContextCreationApi::Egl,
+        // ));
 
         // Create window
         let (mut window, receiver) = match window_args.mode {
@@ -153,6 +158,10 @@ impl FlutterWindow {
                 })?
             }
         };
+
+        let size = window.get_framebuffer_size();
+        let g_pixel_ratio = size.0 as f64 / window_args.width as f64;
+        println!("window.size is {:?}, g_pixel_ratio is {:?}", size, g_pixel_ratio);
 
         // Create invisible resource window
         glfw.window_hint(glfw::WindowHint::Decorated(false));
@@ -211,7 +220,7 @@ impl FlutterWindow {
             _resource_window_receiver: res_window_recv,
             engine,
             pointer_currently_added: AtomicBool::new(false),
-            window_pixels_per_screen_coordinate: AtomicU64::new(0.0_f64.to_bits()),
+            window_pixels_per_screen_coordinate: AtomicU64::new(g_pixel_ratio.to_bits()),
             main_thread_receiver: main_rx,
             main_thread_sender: main_tx,
             mouse_tracker: Mutex::new(Default::default()),
@@ -309,6 +318,10 @@ impl FlutterWindow {
 
         let mut glfw = self.glfw.clone();
         while !self.window.lock().should_close() {
+
+            // Swap front and back buffers
+            // self.window.lock().swap_buffers();
+
             // Execute tasks and callbacks
             let next_task_time = self.engine.execute_platform_tasks();
 
@@ -331,10 +344,7 @@ impl FlutterWindow {
                 glfw.wait_events();
             }
 
-            // Fetch events
-            let events: Vec<(f64, glfw::WindowEvent)> =
-                glfw::flush_messages(&self.window_receiver).collect();
-            for (_, event) in events {
+            for (_, event) in glfw::flush_messages(&self.window_receiver) {
                 let run_default_handler = if let Some(custom_handler) = &mut custom_handler {
                     custom_handler(&self, event.clone())
                 } else if let glfw::WindowEvent::CursorPos(x, y) = event {
@@ -458,11 +468,11 @@ impl FlutterWindow {
                 // self.window_pixels_per_screen_coordinate =
                 //     f64::from(framebuffer_size.0) / f64::from(window_size.0);
 
-                log::debug!(
-                    "Setting framebuffer size to {:?}, scale to {}",
-                    framebuffer_size,
-                    scale.0
-                );
+                // log::debug!(
+                //     "Setting framebuffer size to {:?}, scale to {}",
+                //     framebuffer_size,
+                //     scale.0
+                // );
 
                 self.engine.send_window_metrics_event(
                     framebuffer_size.0 as _,
@@ -746,6 +756,7 @@ impl FlutterWindow {
                     });
                 });
             }
+
             glfw::WindowEvent::Key(key, scancode, glfw::Action::Release, modifiers) => {
                 self.with_plugin_mut(|keyevent: &mut flutter_plugins::keyevent::KeyEventPlugin| {
                     keyevent.key_action(KeyAction {
@@ -758,7 +769,9 @@ impl FlutterWindow {
                     });
                 });
             }
-            _ => {}
+            _ => {
+                log::info!("unhandled event {:?}", event);
+            }
         }
     }
 }

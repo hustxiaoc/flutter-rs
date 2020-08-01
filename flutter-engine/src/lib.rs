@@ -137,6 +137,7 @@ impl FlutterEngine {
             args.push(CString::new(arg.as_str()).unwrap().into_raw());
         }
 
+
         let (main_tx, main_rx) = unbounded();
 
         let engine = Self {
@@ -199,6 +200,7 @@ impl FlutterEngine {
             post_task_callback: Some(flutter_callbacks::post_task),
             identifier: 0,
         };
+
         let custom_task_runners = flutter_engine_sys::FlutterCustomTaskRunners {
             struct_size: std::mem::size_of::<flutter_engine_sys::FlutterCustomTaskRunners>(),
             platform_task_runner: &platform_task_runner
@@ -236,6 +238,7 @@ impl FlutterEngine {
             shutdown_dart_vm_when_done: true,
             compositor: std::ptr::null(),
         };
+
 
         // Initialise engine
         unsafe {
