@@ -1,4 +1,6 @@
-project_dir="examples/$1";
+app_name=$1;
+export app_name=$app_name;
+project_dir="examples/$app_name";
 if [ ! -x "$project_dir" ]; then
   echo "$project_dir not exist";
   exit 1;

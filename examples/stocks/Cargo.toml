@@ -1,0 +1,21 @@
+[package]
+name = "stocks"
+version = "0.1.0"
+authors = ["淘小杰 <308512341@qq.com>"]
+edition = "2018"
+
+[workspace]
+
+[dependencies]
+env_logger = "0.7.1"
+# flutter-engine = { git = "https://github.com/flutter-rs/flutter-rs" }
+# flutter-winit = { git = "https://github.com/flutter-rs/flutter-rs" }
+flutter-engine = { path = "../../flutter-engine" }
+flutter-glfw = { path = "../../flutter-glfw" }
+log = "0.4.8"
+dirs = "2.0.2"
+parking_lot = "0.11.0"
+serde = "1.0.114"
+
+[package.metadata.flutter]
+engine_version = "99c2b3a245"

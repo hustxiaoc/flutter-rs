@@ -49,7 +49,7 @@ impl MethodCallHandler for Handler {
             "activateSystemCursor" => {
                 let args: ActivateSystemCursorParams = call.args();
                 // todo
-                println!("args {:?}", args);
+                // println!("args {:?}", args);
                 call.success(true)
             }
             _ => {
