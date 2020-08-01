@@ -81,6 +81,8 @@ struct Handler {
 
 impl MethodCallHandler for Handler {
     fn on_method_call(&mut self, call: MethodCall) {
+        println!("window on_method_call {:?}", call.method().as_str());
+
         match call.method().as_str() {
             "maximize" => {
                 self.handler.lock().maximize();

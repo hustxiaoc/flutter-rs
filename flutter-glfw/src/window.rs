@@ -32,7 +32,7 @@ use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc::{Receiver, SendError, Sender};
 use std::sync::{mpsc, Arc, Weak};
 use std::time::Instant;
-// use glfw::{Context};
+use glfw::{WindowEvent};
 
 // seems to be about 2.5 lines of text
 const SCROLL_SPEED: f64 = 20.0;
@@ -86,15 +86,15 @@ unsafe impl Send for WindowSafe {}
 unsafe impl Sync for WindowSafe {}
 
 pub(crate) type MainTheadFn = Box<dyn FnMut(&FlutterWindow) + Send>;
-pub type WindowEventHandler = dyn FnMut(&FlutterWindow, glfw::WindowEvent) -> bool;
+pub type WindowEventHandler = dyn FnMut(&FlutterWindow, WindowEvent) -> bool;
 pub type PerFrameCallback = dyn FnMut(&FlutterWindow);
 
 pub struct FlutterWindow {
     glfw: glfw::Glfw,
     window: Arc<Mutex<glfw::Window>>,
-    window_receiver: Receiver<(f64, glfw::WindowEvent)>,
+    window_receiver: Receiver<(f64, WindowEvent)>,
     _resource_window: glfw::Window,
-    _resource_window_receiver: Receiver<(f64, glfw::WindowEvent)>,
+    _resource_window_receiver: Receiver<(f64, WindowEvent)>,
     engine: FlutterEngine,
     pointer_currently_added: AtomicBool,
     window_pixels_per_screen_coordinate: AtomicU64,
@@ -300,16 +300,7 @@ impl FlutterWindow {
         // enable event polling
         {
             let mut window = self.window.lock();
-            window.set_char_polling(true);
-            window.set_cursor_pos_polling(true);
-            window.set_cursor_enter_polling(true);
-            window.set_framebuffer_size_polling(true);
-            window.set_key_polling(true);
-            window.set_mouse_button_polling(true);
-            window.set_scroll_polling(true);
-            window.set_size_polling(true);
-            window.set_content_scale_polling(true);
-            window.set_refresh_polling(true);
+            window.set_all_polling(true);
         }
 
         self.with_plugin(
@@ -349,11 +340,13 @@ impl FlutterWindow {
             for (_, event) in glfw::flush_messages(&self.window_receiver) {
                 let run_default_handler = if let Some(custom_handler) = &mut custom_handler {
                     custom_handler(&self, event.clone())
-                } else if let glfw::WindowEvent::CursorPos(x, y) = event {
-                    self.window_handler.lock().drag_window(x, y)
+                } else if let WindowEvent::CursorPos(x, y) = event {
+                    let is_dragging = self.window_handler.lock().drag_window(x, y);
+                    !is_dragging
                 } else {
                     true
                 };
+
                 if run_default_handler {
                     self.handle_glfw_event(event);
                 }
@@ -456,9 +449,13 @@ impl FlutterWindow {
         }
     }
 
-    pub fn handle_glfw_event(&self, event: glfw::WindowEvent) {
+    pub fn handle_glfw_event(&self, event: WindowEvent) {
         match event {
-            glfw::WindowEvent::Refresh => {
+            WindowEvent::Focus(focus) => {
+                println!("window focus {:?}", focus);
+            }
+
+            WindowEvent::Refresh => {
                 let window = self.window.lock();
 
                 // let window_size = window.get_size();
@@ -482,7 +479,7 @@ impl FlutterWindow {
                     f64::from(scale.0),
                 );
             }
-            glfw::WindowEvent::CursorEnter(entered) => {
+            WindowEvent::CursorEnter(entered) => {
                 let cursor_pos = self.window.lock().get_cursor_pos();
                 self.send_pointer_event(
                     if entered {
@@ -496,7 +493,7 @@ impl FlutterWindow {
                     FlutterPointerMouseButtons::Primary,
                 );
             }
-            glfw::WindowEvent::CursorPos(x, y) => {
+            WindowEvent::CursorPos(x, y) => {
                 // fix error when dragging cursor out of a window
                 if !self.pointer_currently_added.load(Ordering::Relaxed) {
                     return;
@@ -520,7 +517,7 @@ impl FlutterWindow {
                     FlutterPointerMouseButtons::Primary,
                 );
             }
-            glfw::WindowEvent::MouseButton(
+            WindowEvent::MouseButton(
                 glfw::MouseButton::Button4,
                 glfw::Action::Press,
                 _modifiers,
@@ -534,7 +531,7 @@ impl FlutterWindow {
                     },
                 );
             }
-            glfw::WindowEvent::MouseButton(buttons, action, _modifiers) => {
+            WindowEvent::MouseButton(buttons, action, _modifiers) => {
                 // Since Events are delayed by wait_events_timeout,
                 // it's not accurate to use get_mouse_button API to fetch current mouse state
                 // Here we save mouse states, and query it in this HashMap
@@ -568,7 +565,7 @@ impl FlutterWindow {
                     buttons,
                 );
             }
-            glfw::WindowEvent::Scroll(scroll_delta_x, scroll_delta_y) => {
+            WindowEvent::Scroll(scroll_delta_x, scroll_delta_y) => {
                 let (x, y) = self.window.lock().get_cursor_pos();
                 let phase = if self
                     .mouse_tracker
@@ -577,7 +574,6 @@ impl FlutterWindow {
                     .unwrap_or(&glfw::Action::Release)
                     == &glfw::Action::Press
                 {
-                    println!("mouse move");
                     FlutterPointerPhase::Move
                 } else {
                     FlutterPointerPhase::Hover
@@ -593,13 +589,13 @@ impl FlutterWindow {
                     FlutterPointerMouseButtons::Primary,
                 );
             }
-            glfw::WindowEvent::FramebufferSize(_, _) => {
+            WindowEvent::FramebufferSize(_, _) => {
                 self.send_scale_or_size_change();
             }
-            glfw::WindowEvent::ContentScale(_, _) => {
+            WindowEvent::ContentScale(_, _) => {
                 self.send_scale_or_size_change();
             }
-            glfw::WindowEvent::Char(char) => self.with_plugin_mut(
+            WindowEvent::Char(char) => self.with_plugin_mut(
                 |text_input: &mut flutter_plugins::textinput::TextInputPlugin| {
                     text_input.with_state(|state| {
                         state.add_characters(&char.to_string());
@@ -607,8 +603,8 @@ impl FlutterWindow {
                     text_input.notify_changes();
                 },
             ),
-            glfw::WindowEvent::Key(key, scancode, glfw::Action::Press, modifiers)
-            | glfw::WindowEvent::Key(key, scancode, glfw::Action::Repeat, modifiers) => {
+            WindowEvent::Key(key, scancode, glfw::Action::Press, modifiers)
+            | WindowEvent::Key(key, scancode, glfw::Action::Repeat, modifiers) => {
                 // TODO: move this to TextInputPlugin
                 match key {
                     glfw::Key::Enter => self.with_plugin_mut(
@@ -760,7 +756,7 @@ impl FlutterWindow {
                 });
             }
 
-            glfw::WindowEvent::Key(key, scancode, glfw::Action::Release, modifiers) => {
+            WindowEvent::Key(key, scancode, glfw::Action::Release, modifiers) => {
                 self.with_plugin_mut(|keyevent: &mut flutter_plugins::keyevent::KeyEventPlugin| {
                     keyevent.key_action(KeyAction {
                         toolkit: "glfw".to_string(),

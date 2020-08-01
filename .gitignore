@@ -1,6 +1,10 @@
-/target
 **/*.rs.bk
-/.vscode
-/.cargo
+.vscode
+.cargo
 .DS_Store
 .flutter-plugins-dependencies
+target
+build
+.dart_tool
+.packages
+.idea
