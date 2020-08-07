@@ -46,5 +46,5 @@ fn main() {
 
     println!("start run");
     flutter.run(None, None).unwrap();
-    println!("done");
+    println!("progress done");
 }

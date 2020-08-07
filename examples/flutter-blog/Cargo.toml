@@ -1,5 +1,5 @@
 [package]
-name = "stocks"
+name = "flutter-blog"
 version = "0.1.0"
 authors = ["淘小杰 <308512341@qq.com>"]
 edition = "2018"

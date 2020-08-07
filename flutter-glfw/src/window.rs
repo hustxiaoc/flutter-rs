@@ -33,7 +33,9 @@ use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc::{Receiver, SendError, Sender};
 use std::sync::{mpsc, Arc, Weak};
 use std::time::Instant;
-use glfw::{WindowEvent};
+use glfw::{WindowEvent, Action, Context};
+use image::imageops::{resize, Nearest};
+use image::{open as open_image, DynamicImage};
 
 // seems to be about 2.5 lines of text
 const SCROLL_SPEED: f64 = 20.0;
@@ -160,6 +162,20 @@ impl FlutterWindow {
                 })?
             }
         };
+
+        // let logo = format!("{}/assets/flutter.png", assets_path.to_str().unwrap());
+
+        // println!("logo path is {:?}", logo);
+
+        // if let DynamicImage::ImageRgba8(icon) = open_image(logo).unwrap() {
+        //     //Set the icon to be multiple sizes of the same icon to account for scaling
+        //     println!("call window.set_icon");
+        //     window.set_icon(vec![
+        //         resize(&icon, 16, 16, Nearest),
+        //         resize(&icon, 32, 32, Nearest),
+        //         resize(&icon, 48, 48, Nearest),
+        //     ]);
+        // }
 
         let size = window.get_framebuffer_size();
         let g_pixel_ratio = size.0 as f64 / window_args.width as f64;
@@ -314,9 +330,6 @@ impl FlutterWindow {
         let mut glfw = self.glfw.clone();
         while !self.window.lock().should_close() {
 
-            // Swap front and back buffers
-            // self.window.lock().swap_buffers();
-
             // Execute tasks and callbacks
             let next_task_time = self.engine.execute_platform_tasks();
 
@@ -371,7 +384,7 @@ impl FlutterWindow {
         Ok(())
     }
 
-    pub fn shutdown(self) {
+    pub fn shutdown(&self) {
         self.engine.shutdown();
     }
 
@@ -453,6 +466,11 @@ impl FlutterWindow {
 
     pub fn handle_glfw_event(&self, event: WindowEvent) {
         match event {
+            WindowEvent::Close => {
+                println!("Window close requested.");
+                self.shutdown();
+            }
+
             WindowEvent::Focus(focus) => {
                 println!("window focus {:?}", focus);
             }

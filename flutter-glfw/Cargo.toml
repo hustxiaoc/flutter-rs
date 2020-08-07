@@ -15,4 +15,5 @@ flutter-plugins = { path = "../flutter-plugins" }
 locale_config = "0.3.0"
 log = "0.4.8"
 parking_lot = "0.10.0"
-glfw = "0.37.0"
+glfw = { version = "0.37.0", features = ["image"]}
+image = "^0.23"
