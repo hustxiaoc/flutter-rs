@@ -31,7 +31,7 @@ class _UnitBottomBarState extends State<UnitBottomBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: info
-              .map((e) => _buildChild(context, info.indexOf(e), widget.color??Colors.redAccent))
+              .map((e) => _buildChild(context, info.indexOf(e), widget.color))
               .toList(),
         ));
   }

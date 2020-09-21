@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_star/flutter_star.dart';
 import 'package:flutter_unit/app/res/cons.dart';
-import 'package:flutter_unit/app/style/TolyIcon.dart';
+import 'package:flutter_unit/app/res/toly_icon.dart';
 import 'package:flutter_unit/app/utils/Toast.dart';
 import 'package:flutter_unit/blocs/bloc_exp.dart';
 import 'package:flutter_unit/components/permanent/feedback_widget.dart';
@@ -110,7 +110,6 @@ class _WidgetDetailPageState extends State<WidgetDetailPage> {
 
   Widget _buildNodes(List<NodeModel> nodes, String name) {
     var globalState = BlocProvider.of<GlobalBloc>(context).state;
-
     return Column(
         children: nodes
             .asMap()
@@ -143,10 +142,6 @@ class _WidgetDetailPageState extends State<WidgetDetailPage> {
   Widget _buildDetail(BuildContext context, DetailState state) {
     print('build---${state.runtimeType}---');
     if (state is DetailWithData) {
-//      return Container(
-//        child: Text('${state.runtimeType}'),
-//      );
-
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -270,7 +265,7 @@ class WidgetDetailTitle extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       child: model.image == null
-                          ? Image.asset('assets/images/caver.jpeg')
+                          ? Image.asset('assets/images/caver.webp')
                           : Image(image: model.image))),
             ),
           ),

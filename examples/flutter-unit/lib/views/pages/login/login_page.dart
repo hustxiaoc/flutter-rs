@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_unit/app/style/TolyIcon.dart';
+import 'package:flutter_unit/app/res/toly_icon.dart';
 //import 'package:santclient/app/global/SantIcon.dart';
 //import 'package:santclient/app/router/router.dart';
 //import 'package:santclient/bloc/authentic/bloc.dart';
@@ -73,7 +73,7 @@ class LoginPage extends StatelessWidget {
 
   Widget arcBackground() {
     return ArcBackground(
-      image: AssetImage("assets/images/caver.jpeg"),
+      image: AssetImage("assets/images/caver.webp"),
       child: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Container(

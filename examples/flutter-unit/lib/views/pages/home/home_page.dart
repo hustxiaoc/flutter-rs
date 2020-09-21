@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_unit/app/convert.dart';
+import 'package:flutter_unit/app/utils/convert.dart';
 import 'package:flutter_unit/app/res/cons.dart';
 import 'package:flutter_unit/app/router.dart';
 import 'package:flutter_unit/blocs/bloc_exp.dart';
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     var color = context.bloc<HomeBloc>().state.homeColor;
     return Scaffold(
       appBar: TolyAppBar(
-        selectIndex: 0, // Cons.tabColors.indexOf(color.value),
+        selectIndex: Cons.tabColors.indexOf(color.value),
         preferredSize: Size.fromHeight(_height),
         onItemClick: _switchTab,
       ),
@@ -93,13 +93,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
   _switchTab(int index, Color color) {
     if (_ctrl.hasClients) _ctrl.jumpTo(0);
-    BlocProvider.of<HomeBloc>(context)
-        .add(EventTabTap(Convert.toFamily(index)));
+    BlocProvider.of<HomeBloc>(context).add(EventTabTap(Convert.toFamily(index)));
   }
 
   _toDetailPage(WidgetModel model) async {
     BlocProvider.of<DetailBloc>(context).add(FetchWidgetDetail(model));
-    Navigator.pushNamed(context, Router.widget_detail, arguments: model);
+    Navigator.pushNamed(context, UnitRouter.widget_detail, arguments: model);
   }
 
   @override

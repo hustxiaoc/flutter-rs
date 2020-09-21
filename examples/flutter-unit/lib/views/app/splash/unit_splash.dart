@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +52,7 @@ class _UnitSplashState extends State<UnitSplash> with TickerProviderStateMixin {
       setState(() {
         _animEnd = true;
         Future.delayed(Duration(milliseconds: 500)).then((e) {
-          Navigator.of(context).pushReplacementNamed(Router.nav);
+          Navigator.of(context).pushReplacementNamed(UnitRouter.nav);
         });
       });
     }
@@ -128,7 +126,7 @@ class _UnitSplashState extends State<UnitSplash> with TickerProviderStateMixin {
                 child: Container(
                   height: 120,
                   child: FlutterLogo(
-                    colors: primaryColor,
+//                    colors: primaryColor,
                     size: 60,
                   ),
                 )),
@@ -144,7 +142,7 @@ class _UnitSplashState extends State<UnitSplash> with TickerProviderStateMixin {
       child: Container(
         height: 45,
         width: 45,
-        child: Image.asset('assets/images/icon_head.png'),
+        child: Image.asset('assets/images/icon_head.webp'),
       ));
 
   Widget _buildPower() => Positioned(

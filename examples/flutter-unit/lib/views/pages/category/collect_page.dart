@@ -57,10 +57,10 @@ class _CollectPageState extends State<CollectPage>
           margin: EdgeInsets.all(10),
           child: FeedbackWidget(
             onPressed: (){
-              Navigator.of(context).pushNamed(Router.login);
+              Navigator.of(context).pushNamed(UnitRouter.login);
             },
             child: CircleImage(
-              image: AssetImage('assets/images/icon_head.png'),
+              image: AssetImage('assets/images/icon_head.webp'),
               borderSize: 1.5,
             ),
           )),
@@ -80,7 +80,7 @@ class _CollectPageState extends State<CollectPage>
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax, //视差效果
         background: Image.asset(
-          "assets/images/caver.jpeg",
+          "assets/images/caver.webp",
           fit: BoxFit.cover,
         ),
       ),
@@ -116,6 +116,5 @@ class _CollectPageState extends State<CollectPage>
       onPressed: () => Scaffold.of(context).openEndDrawer());
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

@@ -12,6 +12,10 @@ env_logger = "0.7.1"
 # flutter-winit = { git = "https://github.com/flutter-rs/flutter-rs" }
 flutter-engine = { path = "../../flutter-engine" }
 flutter-glfw = { path = "../../flutter-glfw" }
+
+# flutter-winit = { path = "../../flutter-winit" }
+# glutin = { git = "https://github.com/dvc94ch/glutin", branch = "android" }
+
 log = "0.4.8"
 dirs = "2.0.2"
 parking_lot = "0.11.0"
@@ -19,15 +23,5 @@ serde = "1.0.114"
 sqlite = "0.25.3"
 serde_json = "1.0.57"
 
-[target.'cfg(target_os = "android")'.dependencies]
-android_glue = { git = "https://github.com/rust-windowing/android-rs-glue" }
-android_logger = "0.8.6"
-android-ndk = { git = "https://github.com/rust-windowing/android-ndk-rs" }
-jni-glue = "0.0.10"
-
-[target.'cfg(target_os = "android")'.dependencies.jni-android-sys]
-version = "0.0.10"
-features = ["api-level-18", "android-content-Context", "android-content-pm-ApplicationInfo"]
-
 [package.metadata.flutter]
-engine_version = "99c2b3a245"
+engine_version = "fee6f9e533"

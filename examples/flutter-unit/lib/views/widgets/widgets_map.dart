@@ -51,7 +51,82 @@ class WidgetsMap {
         return [
           CustomBanner(),
         ];
+      case "Viewport":
+        return [
+          ViewportDemo(),
+        ];
+      case "InputDecorator":
+        return [
+          InputDecoratorDemo(),
+        ];
+      case "WidgetInspector":
+        return [
+          WidgetInspectorDemo(),
+        ];
+      case "PageStorage":
+        return [
+          PageStorageDemo(),
+        ];
+      case "NotificationListener":
+        return [NotificationListenerDemo(), NotificationListenerUpdate()];
 
+      case "Scrollable":
+        return [
+          ScrollableDemo(),
+        ];
+      case "PhysicalModel":
+        return [
+          PhysicalModelDemo(),
+        ];
+      case "Directionality":
+        return [
+          DirectionalityDemo(),
+        ];
+      case "AnimatedTheme":
+        return [
+          AnimatedThemeDemo(),
+        ];
+      case "CupertinoSlidingSegmentedControl":
+        return [
+          CupertinoSlidingSegmentedControlDemo(),
+        ];
+      case "WidgetsApp":
+        return [
+          WidgetsAppDemo(),
+        ];
+
+      case "EditableText":
+        return [
+          EditableTextDemo(),
+        ];
+      case "PhysicalShape":
+        return [
+          PhysicalShapeDemo(),
+        ];
+      case "ListBody":
+        return [
+          ListBodyDemo(),
+        ];
+      case "FractionalTranslation":
+        return [
+          FractionalTranslationDemo(),
+        ];
+      case "MouseRegion":
+        return [
+          MouseRegionDemo(),
+        ];
+      case "TabPageSelector":
+        return [
+          TabPageSelectorDemo(),
+        ];
+      case "CupertinoNavigationBarBackButton":
+        return [
+          CupertinoNavigationBarBackButtonDemo(),
+        ];
+      case "TabPageSelectorIndicator":
+        return [
+          TabPageSelectorIndicatorDemo(),
+        ];
       case "Title":
         return [
           TitleDemo(),
@@ -60,9 +135,29 @@ class WidgetsMap {
         return [
           ToggleButtonsThemeDemo(),
         ];
+      case "PerformanceOverlay":
+        return [
+          PerformanceOverlayDemo(),
+        ];
       case "NavigationToolbar":
         return [
           NavigationToolbarDemo(),
+        ];
+      case "CupertinoDialogAction":
+        return [
+          CupertinoDialogActionDemo(),
+        ];
+      case "ButtonBarTheme":
+        return [
+          ButtonBarThemeDemo(),
+        ];
+      case "RawImage":
+        return [
+          RawImageDemo(),
+        ];
+      case "TooltipTheme":
+        return [
+          TooltipThemeDemo(),
         ];
       case "CupertinoTextField":
         return [
@@ -91,6 +186,12 @@ class WidgetsMap {
         return [
           CustomFadeInImage(),
         ];
+      case "InteractiveViewer":
+        return [
+          InteractiveViewerDemo(),
+          InteractiveViewerDemo2(),
+          InteractiveViewerDemo3(),
+        ];
       case "CircleAvatar":
         return [
           CustomCircleAvatar(),
@@ -99,6 +200,11 @@ class WidgetsMap {
         return [
           CustomVisibility(),
           ReplacementVisibility(),
+        ];
+      case "RepaintBoundary":
+        return [
+          RepaintBoundaryDemo(),
+          RepaintBoundarySave(),
         ];
       case "Chip":
         return [
@@ -375,7 +481,7 @@ class WidgetsMap {
         ];
       case "MaterialApp":
         return [
-          CustomMaterialApp(),
+          MaterialAppDemo(),
         ];
       case "ClipOval":
         return [
@@ -1016,6 +1122,10 @@ class WidgetsMap {
       case "BackdropFilter":
         return [
           CustomBackdropFilter(),
+        ];
+      case "AnimatedPhysicalModel":
+        return [
+          AnimatedPhysicalModelDemo(),
         ];
       case "CustomSingleChildLayout":
         return [

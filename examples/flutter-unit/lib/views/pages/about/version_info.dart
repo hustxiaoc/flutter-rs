@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_unit/app/res/cons.dart';
 import 'package:flutter_unit/app/router.dart';
-import 'package:flutter_unit/app/style/NoScrollBehavior.dart';
+import 'package:flutter_unit/app/res/style/behavior/no_scroll_behavior.dart';
 import 'package:flutter_unit/components/permanent/circle_image.dart';
 import 'package:flutter_unit/components/permanent/feedback_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,7 +51,7 @@ class VersionInfo extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 10,
       children: <Widget>[
-        CircleImage(image: AssetImage("assets/images/icon_head.png"),size: 80,),
+        CircleImage(image: AssetImage("assets/images/icon_head.webp"),size: 80,),
         Text('Flutter Unit',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
         Text('Version ${Cons.version}'),
       ],
@@ -73,7 +73,7 @@ class VersionInfo extends StatelessWidget {
             ListTile(
               title: Text('应用详情',style: labelStyle,),
               trailing: _nextIcon(context),
-              onTap: () => Navigator.of(context).pushNamed(Router.about_app),
+              onTap: () => Navigator.of(context).pushNamed(UnitRouter.about_app),
             ),
             Divider(height: 1,indent: 10),
             ListTile(

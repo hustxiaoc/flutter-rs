@@ -23,3 +23,6 @@ export '../ProxyWidget/ListTileTheme/node1_base.dart';
 export '../ProxyWidget/MaterialBannerTheme/node1_base.dart';
 export '../ProxyWidget/PopupMenuTheme/node1_base.dart';
 export '../ProxyWidget/ToggleButtonsTheme/node1_base.dart';
+export '../ProxyWidget/ButtonBarTheme/node1_base.dart';
+export '../ProxyWidget/TooltipTheme/node1_base.dart';
+export '../ProxyWidget/Directionality/node1_base.dart';

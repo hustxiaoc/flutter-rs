@@ -177,6 +177,8 @@ impl FlutterWindow {
         //     ]);
         // }
 
+        // window.set_preedit_cursor_pos(100, 100, 300);
+
         let size = window.get_framebuffer_size();
         let g_pixel_ratio = size.0 as f64 / window_args.width as f64;
         println!("window.size is {:?}, g_pixel_ratio is {:?}", size, g_pixel_ratio);
@@ -184,6 +186,7 @@ impl FlutterWindow {
         // Create invisible resource window
         glfw.window_hint(glfw::WindowHint::Decorated(false));
         glfw.window_hint(glfw::WindowHint::Visible(false));
+
         let (mut res_window, res_window_recv) = window
             .create_shared(1, 1, "", glfw::WindowMode::Windowed)
             .ok_or(CreateError::WindowCreationFailed)?;

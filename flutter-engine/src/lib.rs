@@ -208,13 +208,18 @@ impl FlutterEngine {
             render_task_runner: std::ptr::null(),
         };
 
+        let icu_data = CString::new("/Users/taoxiaojie/Library/Caches/hover/engine/darwin/FlutterEmbedder.framework/Versions/A/Resources/icudtl.dat")
+            .unwrap()
+            .into_raw();
+
         // Configure engine
         let project_args = flutter_engine_sys::FlutterProjectArgs {
             struct_size: std::mem::size_of::<flutter_engine_sys::FlutterProjectArgs>(),
             assets_path: path_to_cstring(&inner.assets).into_raw(),
             main_path__unused__: std::ptr::null(),
             packages_path__unused__: std::ptr::null(),
-            icu_data_path: std::ptr::null(),
+            // icu_data_path: std::ptr::null(),
+            icu_data_path: icu_data,
             command_line_argc: args.len() as i32,
             command_line_argv: args.as_mut_ptr() as _,
             platform_message_callback: Some(flutter_callbacks::platform_message_callback),
@@ -336,6 +341,8 @@ impl FlutterEngine {
     where
         F: FnOnce(&FlutterEngine) -> () + 'static + Send,
     {
+        // println!("run_on_platform_thread");
+
         if self.is_platform_thread() {
             f(self);
         } else {
@@ -347,6 +354,7 @@ impl FlutterEngine {
     where
         F: FnOnce(&FlutterEngine) -> () + 'static + Send,
     {
+        println!("run_on_render_thread");
         // TODO: Reimplement render thread
         // if self.is_platform_thread() {
         //     f(self);

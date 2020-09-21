@@ -1,0 +1,43 @@
+[package]
+authors = ["The glfw-rs developers."]
+description = "GLFW3 bindings and idiomatic wrapper for Rust."
+keywords = ["windowing", "opengl", "vulkan"]
+license = "Apache-2.0"
+name = "glfw"
+readme = "README.md"
+repository = "https://github.com/bjz/glfw-rs"
+version = "0.40.0"
+
+[dependencies]
+bitflags = "1.0.0"
+log = "0.4"
+semver = "0.9"
+raw-window-handle = "0.3"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc = "0.2"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+winapi = { version = "0.3", features = ["libloaderapi"] }
+
+[dependencies.glfw-sys]
+optional = true
+# version = "^3.3"
+path="../glfw-sys"
+
+[dependencies.image]
+optional = true
+version = "^0.23"
+
+[dependencies.vk-sys]
+optional = true
+version = "^0.4"
+
+[dev-dependencies]
+vk-sys = "^0.4"
+image = "^0.23"
+
+[features]
+all = ["image", "vulkan"]
+default = ["glfw-sys"]
+vulkan = ["vk-sys"]

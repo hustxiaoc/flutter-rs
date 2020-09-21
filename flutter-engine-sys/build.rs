@@ -2,6 +2,10 @@ use bindgen::EnumVariation;
 use std::path::PathBuf;
 
 fn main() {
+    let p = "/Users/taoxiaojie/work/flutter_demo/rust-flutter/examples/flutter-unit/target/flutter/debug";
+    println!("cargo:rustc-link-search=framework={}", p);
+    
+    // println!("cargo:rustc-link-search=framework={}", "/Library/Frameworks");
     let target = std::env::var("TARGET").unwrap();
     let mut clang_args: Vec<String> = Vec::new();
 

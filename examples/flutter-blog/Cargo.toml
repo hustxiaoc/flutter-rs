@@ -18,4 +18,4 @@ parking_lot = "0.11.0"
 serde = "1.0.114"
 
 [package.metadata.flutter]
-engine_version = "99c2b3a245"
+engine_version = "fee6f9e533"

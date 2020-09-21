@@ -39,12 +39,10 @@ class WidgetDao {
 
   Future<List<Map<String, dynamic>>> queryByFamily(WidgetFamily family) async {
     final db = await storage.db;
-    final list = await db.rawQuery(
+    return await db.rawQuery(
         "SELECT * "
         "FROM widget WHERE family = ? ORDER BY lever DESC",
         [family.index]);
-//    print("list is $list");
-    return list;
   }
 
   Future<List<Map<String, dynamic>>> queryByIds(List<int> ids) async {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unit/app/router.dart';
-import 'package:flutter_unit/app/style/TolyIcon.dart';
+import 'package:flutter_unit/app/res/toly_icon.dart';
+import 'package:flutter_unit/blocs/point/point_bloc.dart';
+import 'package:flutter_unit/blocs/point/point_event.dart';
 import 'package:flutter_unit/components/flutter/no_div_expansion_tile.dart';
 import 'package:flutter_unit/views/common/unit_drawer_header.dart';
 
@@ -27,14 +30,14 @@ class HomeDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UnitDrawerHeader(color: color),
-            _buildItem(context, TolyIcon.icon_them, '应用设置', Router.setting),
+            _buildItem(context, TolyIcon.icon_them, '应用设置', UnitRouter.setting),
             _buildItem(context, TolyIcon.icon_layout, '数据统计', null),
             Divider(height: 1),
             _buildFlutterUnit(context),
             _buildItem(context, TolyIcon.icon_code, 'Dart 手册', null),
             Divider(height: 1),
-            _buildItem(context, Icons.info, '关于应用', Router.about_app),
-            _buildItem(context, TolyIcon.icon_kafei, '联系本王', Router.about_me),
+            _buildItem(context, Icons.info, '关于应用', UnitRouter.about_app),
+            _buildItem(context, TolyIcon.icon_kafei, '联系本王', UnitRouter.about_me),
           ],
         ),
       );
@@ -47,15 +50,17 @@ class HomeDrawer extends StatelessWidget {
         ),
         title: Text('Flutter 集录'),
         children: <Widget>[
-          _buildItem(context, TolyIcon.icon_tag, '属性集录', Router.attr),
-          _buildItem(context, Icons.palette, '绘画集录', Router.paint),
-          _buildItem(context, Icons.widgets, '布局集录', Router.layout),
-          _buildItem(context, TolyIcon.icon_bug, '要点集录', Router.bug),
+          _buildItem(context, TolyIcon.icon_tag, '属性集录', UnitRouter.attr),
+          _buildItem(context, Icons.palette, '绘画集录', UnitRouter.paint),
+          _buildItem(context, Icons.widgets, '布局集录', UnitRouter.layout),
+          _buildItem(context, TolyIcon.icon_bug, '要点集录', UnitRouter.issues_point,onTap: (){
+            BlocProvider.of<PointBloc>(context).add(EventLoadPoint());
+          }),
         ],
       );
 
   Widget _buildItem(
-          BuildContext context, IconData icon, String title, String linkTo) =>
+          BuildContext context, IconData icon, String title, String linkTo,{VoidCallback onTap}) =>
       ListTile(
         leading: Icon(
           icon,
@@ -67,6 +72,7 @@ class HomeDrawer extends StatelessWidget {
         onTap: () {
           if (linkTo != null && linkTo.isNotEmpty) {
             Navigator.of(context).pushNamed(linkTo);
+            if(onTap!=null) onTap();
           }
         },
       );

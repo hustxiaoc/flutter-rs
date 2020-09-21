@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unit/app/router.dart';
-import 'package:flutter_unit/app/style/TolyIcon.dart';
+import 'package:flutter_unit/app/res/toly_icon.dart';
 import 'package:flutter_unit/blocs/collect/collect_bloc.dart';
 import 'package:flutter_unit/blocs/collect/collect_event.dart';
 import 'package:flutter_unit/blocs/detail/detail_bloc.dart';
@@ -110,7 +110,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget _buildSliverList(List<WidgetModel> models) => SliverList(
         delegate: SliverChildBuilderDelegate(
             (_, int index) => Container(
-//                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 child: InkWell(
                     onTap: () => _toDetailPage(models[index]),
                     child: TechnoWidgetListItem(
@@ -130,6 +129,6 @@ class _SearchPageState extends State<SearchPage> {
 
   _toDetailPage(WidgetModel model) {
     BlocProvider.of<DetailBloc>(context).add(FetchWidgetDetail(model));
-    Navigator.pushNamed(context, Router.widget_detail,arguments: model);
+    Navigator.pushNamed(context, UnitRouter.widget_detail,arguments: model);
   }
 }

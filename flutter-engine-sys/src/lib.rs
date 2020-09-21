@@ -18,7 +18,8 @@ extern "C" {}
 extern "C" {}
 
 #[cfg(target_os = "macos")]
-#[link(name = "flutter_engine")]
+// #[link(name = "flutter_engine")]
+#[link(name = "FlutterEmbedder", kind = "framework")]
 extern "C" {}
 
 #[cfg(target_os = "windows")]

@@ -36,7 +36,8 @@ class _UnitNavigationState extends State<UnitNavigation> {
         builder: (_, state) => Scaffold(
             drawer: HomeDrawer(color:state.homeColor), //左滑页
             endDrawer: HomeRightDrawer(color: state.homeColor), //右滑页
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
             floatingActionButton: _buildSearchButton(state.homeColor),
             body: PageView(
               physics: const NeverScrollableScrollPhysics(),
@@ -57,7 +58,7 @@ class _UnitNavigationState extends State<UnitNavigation> {
       elevation: 2,
       backgroundColor: color,
       child: const Icon(Icons.search),
-      onPressed: () => Navigator.of(context).pushNamed(Router.search),
+      onPressed: () => Navigator.of(context).pushNamed(UnitRouter.search),
     );
   }
 
